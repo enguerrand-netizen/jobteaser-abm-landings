@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JobTeaser × Sanofi — Rencontrer les talents qui feront la santé de demain</title>
+<meta name="description" content="Une proposition de JobTeaser pour les équipes Early Careers de Sanofi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* JobTeaser (émetteur, dominant) */
+    --black:#0A0A0A; --black-2:#141416; --green:#2EE676; --green-deep:#16C95E;
+    --white:#FFFFFF; --grey:#A7ADB5; --line:#242428;
+    /* Sanofi (prospect, accent) */
+    --purple:#7A00E6; --purple-soft:#B888FF;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;font-size:17px;-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--black);color:var(--white);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;line-height:1.6;font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-feature-settings:"kern","liga","calt";text-rendering:optimizeLegibility;overflow-x:hidden}
+  h1,h2,h3{font-family:Poppins,Inter,system-ui,sans-serif;letter-spacing:-.02em;line-height:1.12;font-weight:700;text-wrap:balance}
+  p{text-wrap:pretty}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+
+  a.btn{display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#04110A;text-decoration:none;font-weight:700;padding:15px 28px;border-radius:14px;font-size:1.02rem;transition:transform .15s,box-shadow .15s,background .15s}
+  a.btn:hover{transform:translateY(-2px);background:#4DF08C;box-shadow:0 10px 30px rgba(46,230,118,.35)}
+  a.btn:focus-visible{outline:3px solid var(--purple);outline-offset:3px}
+  a.btn-ghost{background:transparent;color:var(--green);border:2px solid #2c4a38}
+  a.btn-ghost:hover{background:rgba(46,230,118,.08);box-shadow:none}
+
+  /* dot Sanofi */
+  .dot{display:inline-block;width:.34em;height:.34em;border-radius:50%;background:var(--purple);vertical-align:baseline;margin-left:.05em}
+
+  /* nav */
+  .nav{position:sticky;top:0;z-index:20;background:rgba(10,10,10,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-top{height:3px;background:var(--green)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
+  .cobrand{display:flex;align-items:center;gap:14px;font-weight:700}
+  .jt-mark{display:inline-flex;align-items:center;gap:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;font-size:.95rem}
+  .jt-mark .tri{width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:12px solid var(--green)}
+  .cross{color:#54545c;font-weight:400}
+  .sa-mark{font-family:Poppins;font-weight:700;color:#fff;font-size:1.1rem;letter-spacing:-.5px}
+  .nav a.btn{padding:9px 18px;font-size:.9rem;border-radius:11px}
+
+  /* hero + 3D */
+  .hero{position:relative;display:flex;align-items:center;overflow:hidden;padding:110px 0 40px}
+  #scene{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  /* voile haut + bas pour garder le texte lisible par-dessus la vidéo */
+  .hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,10,10,.55) 0%,rgba(10,10,10,.2) 40%,rgba(10,10,10,0) 62%,var(--black) 100%)}
+  .hero .wrap{position:relative;z-index:2;max-width:1080px}
+  /* hero en une seule colonne centrée : texte puis image */
+  .hero-grid{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px}
+  .hero-copy{max-width:900px;margin:0 auto}
+  .hero .badge{margin-left:auto;margin-right:auto}
+  .hero-actions{justify-content:center}
+  .hero-img{width:100%;height:auto;max-width:1000px;border-radius:24px;margin-top:12px}
+  .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(20,20,22,.7);border:1px solid var(--line);color:var(--grey);font-size:.88rem;padding:8px 16px;border-radius:999px;margin-bottom:26px}
+  .badge .pulse{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(46,230,118,.6);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,230,118,.6)}70%{box-shadow:0 0 0 10px rgba(46,230,118,0)}100%{box-shadow:0 0 0 0 rgba(46,230,118,0)}}
+  h1{font-size:clamp(2.2rem,6vw,4rem);margin:0 0 22px}
+  h1 .g{color:var(--green)}
+  .hero p.sub{font-size:clamp(1.1rem,2.2vw,1.35rem);color:#d5d8dd;max-width:680px;margin:0 auto 32px}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+  .hint{margin-top:20px;font-size:.85rem;color:var(--grey)}
+
+  section{padding:74px 0;border-top:1px solid var(--line);position:relative}
+  .kicker{text-transform:uppercase;letter-spacing:2px;font-size:.76rem;font-weight:700;color:var(--purple-soft);margin:0 0 12px}
+  h2{font-size:clamp(1.7rem,3.6vw,2.5rem);margin:0 0 16px;max-width:660px}
+  .lead{font-size:1.12rem;color:var(--grey);max-width:640px}
+
+  .signals{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:34px}
+  .signal{background:var(--black-2);border:1px solid var(--line);border-radius:18px;padding:24px;transition:border-color .2s,transform .2s}
+  .signal:hover{border-color:var(--green);transform:translateY(-3px)}
+  .signal b{display:block;font-family:Poppins;font-size:1.05rem;margin-bottom:6px}
+  .signal span{color:var(--grey)}
+
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+  .card{background:var(--black-2);border:1px solid var(--line);border-radius:20px;padding:28px}
+  .card .ic{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:16px;background:rgba(122,0,230,.15);border:1px solid rgba(122,0,230,.35)}
+  .card h3{font-size:1.2rem;margin:0 0 8px}
+  .card p{margin:0;color:var(--grey)}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center;margin-top:10px}
+  .stat .big{font-family:Poppins;font-weight:700;font-size:clamp(2rem,4.5vw,3rem);color:var(--green)}
+  .stat .lbl{color:var(--grey);font-size:.92rem}
+
+  .human{background:linear-gradient(135deg,rgba(122,0,230,.18),rgba(46,230,118,.10));border:1px solid var(--line);border-radius:24px;padding:48px;text-align:center}
+  .human blockquote{font-family:Poppins;font-weight:600;font-size:clamp(1.3rem,2.8vw,1.85rem);line-height:1.32;margin:0 auto;max-width:720px}
+  .human .who{margin-top:16px;color:var(--purple-soft);font-weight:600}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+  .step{background:var(--black-2);border:1px solid var(--line);border-radius:18px;padding:26px}
+  .step .num{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:var(--green);color:#04110A;font-family:Poppins;font-weight:700;font-size:1.15rem;margin-bottom:14px}
+  .step h3{font-size:1.1rem;margin:0 0 8px}
+  .step p{margin:0;color:var(--grey)}
+
+  details{background:var(--black-2);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-bottom:12px}
+  summary{font-family:Poppins;font-weight:600;font-size:1.08rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:14px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--green);font-weight:700}
+  details[open] summary::after{content:"–"}
+  details p{color:var(--grey);margin:12px 0 0}
+
+  .final{text-align:center;background:radial-gradient(80% 120% at 50% 0%,rgba(122,0,230,.25),transparent 60%)}
+  .final h2{margin:0 auto 16px}
+  .final p{color:#d5d8dd;max-width:600px;margin:0 auto 28px;font-size:1.12rem}
+
+  footer{padding:38px 0;border-top:1px solid var(--line);color:var(--grey);font-size:.85rem;text-align:center}
+  .cobrand-foot{display:flex;gap:12px;justify-content:center;align-items:center;margin-bottom:12px}
+
+  /* visuels */
+  .visual-band img{width:100%;height:auto;border-radius:24px;border:1px solid var(--line);display:block}
+  .split{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+  .split img{width:100%;height:auto;max-width:420px;margin:0 auto;display:block}
+  .portraits{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
+  .portraits img{width:100%;height:100%;aspect-ratio:4/5;object-fit:cover;border-radius:16px;border:1px solid var(--line);transition:transform .25s,border-color .25s}
+  .portraits img:hover{transform:translateY(-4px) scale(1.02);border-color:var(--green)}
+  @media(max-width:820px){.portraits{grid-template-columns:repeat(2,1fr)}}
+  /* ---- UX/UI polish ---- */
+  /* barre de progression de lecture */
+  .scrollbar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--green),var(--purple));z-index:60;transition:width .1s linear}
+  /* révélations au scroll */
+  .js .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+  .js .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+  /* hover cartes & étapes */
+  .card,.step{transition:transform .25s,border-color .25s,box-shadow .25s}
+  .card:hover,.step:hover{transform:translateY(-4px);border-color:var(--green);box-shadow:0 16px 40px rgba(0,0,0,.35)}
+  .card .ic{transition:transform .25s}
+  .card:hover .ic{transform:scale(1.08) rotate(-3deg)}
+  /* hero image : sans contour, fondue sur le dark */
+  .hero-img{border:0;box-shadow:none}
+  /* liens focus accessibles partout */
+  a:focus-visible,summary:focus-visible{outline:3px solid var(--purple);outline-offset:3px;border-radius:6px}
+  /* rythme vertical un peu plus ample */
+  section{padding:88px 0}
+  .lead{line-height:1.7}
+  /* CTA mobile sticky */
+  .mobile-cta{position:fixed;left:0;right:0;bottom:0;z-index:40;display:none;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(10,10,10,.9);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+  .mobile-cta a.btn{width:100%;justify-content:center}
+
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}.reveal{opacity:1;transform:none}}
+  @media(max-width:820px){
+    .signals,.cards,.steps{grid-template-columns:1fr}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .hero{min-height:auto;padding:84px 0 60px}
+    .split{grid-template-columns:1fr}
+    section{padding:60px 0}
+    .human{padding:32px 22px}
+    .mobile-cta{display:block}
+    footer{padding-bottom:84px}
+  }
+
+  /* très grands écrans : on cadre la largeur */
+  @media(min-width:1500px){ .wrap{max-width:1120px} .hero .wrap{max-width:1280px} }
+
+  /* tablette paysage / petit desktop */
+  @media(max-width:1200px){
+    .hero .wrap{max-width:100%}
+    .hero-grid{gap:28px}
+  }
+
+  /* tablette portrait : le hero repasse en 1 colonne, image sous le texte */
+  @media(max-width:900px){
+    .hero{min-height:auto;padding:96px 0 56px}
+    .hero-copy{max-width:640px;margin:0 auto;text-align:center}
+    .hero .badge{margin-left:auto;margin-right:auto}
+    .hero-actions{justify-content:center}
+    .signals{grid-template-columns:1fr 1fr}
+  }
+
+  /* mobile standard */
+  @media(max-width:680px){
+    html{font-size:16px}
+    .nav .wrap{padding:12px 16px}
+    .cobrand{gap:8px}
+    .jt-mark{font-size:.82rem;letter-spacing:1.5px}
+    .sa-mark{font-size:1rem}
+    .nav .cross{display:none}
+    .signals{grid-template-columns:1fr}
+    h1{font-size:clamp(2rem,9vw,2.8rem)}
+    .human{padding:28px 18px}
+    .human blockquote{font-size:1.25rem}
+  }
+
+  /* petits mobiles */
+  @media(max-width:400px){
+    .wrap{padding:0 16px}
+    .nav a.btn{padding:8px 12px;font-size:.82rem}
+    .hero-actions{flex-direction:column;align-items:stretch}
+    .hero-actions a.btn{justify-content:center}
+    .stats{grid-template-columns:1fr 1fr;gap:14px}
+    .portraits{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<script>document.documentElement.className+=' js';</script>
+<div class="scrollbar" id="scrollbar"></div>
+
+<div class="nav">
+  <div class="nav-top"></div>
+  <div class="wrap">
+    <div class="cobrand">
+      <!-- logo JobTeaser (recréation : triangle vert + wordmark) -->
+      <span class="jt-mark"><span class="tri"></span>JOBTEASER</span>
+      <span class="cross">pour</span>
+      <!-- logo Sanofi (recréation : wordmark minuscule + point violet) -->
+      <span class="sa-mark">sanofi<span class="dot"></span></span>
+    </div>
+    <a class="btn" href="#rdv">Prendre un café</a>
+  </div>
+</div>
+
+<header class="hero">
+  <video id="scene" autoplay muted loop playsinline aria-hidden="true" poster="brand-motion-poster.png">
+    <source src="brand-motion-jobteaser-sanofi.mp4" type="video/mp4">
+  </video>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="badge"><span class="pulse"></span> Proposition dédiée aux équipes Early Careers de Sanofi</span>
+        <h1>Rencontrer les jeunes qui feront la <span class="g">santé de demain</span><span class="dot"></span></h1>
+        <p class="sub">Le « Sanofi Feeling » a donné à toute une génération l'envie de vous rejoindre.
+          Chez JobTeaser, on vous emmène jusqu'à eux — dans leur école, au moment où ils choisissent la suite.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#rdv">Discutons 30 minutes ↗</a>
+          <a class="btn btn-ghost" href="#valeur">Ce que ça change pour vous</a>
+        </div>
+        <p class="hint">Rien de générique : on a d'abord regardé où vous en êtes.</p>
+      </div>
+      <img class="hero-img" src="img-recruteurs-sante-dark.png" alt="Les grands acteurs de la santé recrutent déjà leurs jeunes talents avec JobTeaser">
+    </div>
+  </div>
+</header>
+
+<section id="pourquoi">
+  <div class="wrap">
+    <p class="kicker">Pourquoi vous, pourquoi maintenant</p>
+    <h2>On a regardé Sanofi de près. Voilà ce qui nous a donné envie de vous écrire.</h2>
+    <p class="lead">Quatre choses qui, mises bout à bout, font que le moment est bon.</p>
+    <div class="signals">
+      <div class="signal"><b>Votre marque employeur a décollé</b><span>La campagne « Sanofi Feeling » (mai 2025) a dépassé 100 millions d'impressions. L'envie est là — reste à la transformer en candidatures.</span></div>
+      <div class="signal"><b>+36 % de candidatures, +82 % de talents venus de la concurrence</b><span>Vous attirez plus, et mieux. Un canal campus solide aide à tenir ce rythme sans perdre en qualité.</span></div>
+      <div class="signal"><b>Des parcours jeunes bien distincts</b><span>R&D, Digital, Commercial, Supply : chaque filière parle à des étudiants et des écoles différents. On cible finement.</span></div>
+      <div class="signal"><b>La saison 2026 se joue maintenant</b><span>Vos candidatures ouvrent mi-septembre. C'est le moment d'être présent là où les étudiants se projettent — avant vos concurrents.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="valeur">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <p class="kicker">Ce que ça change pour Sanofi</p>
+        <h2>Vous parler aux étudiants là où ils se sentent en confiance.</h2>
+        <p class="lead">Pas une énième plateforme d'annonces. Le career center de leur école — celui qu'ils ouvrent déjà. Votre page, vos offres, votre « feeling ».</p>
+      </div>
+      <img src="img-phone-sanofi.png" alt="La page Sanofi et ses offres dans le Career Center JobTeaser sur mobile" style="border-radius:20px;border:1px solid var(--line)">
+    </div>
+    <div class="cards" style="margin-top:44px">
+      <div class="card"><div class="ic">🎓</div><h3>Les bons profils, pas juste du volume</h3><p>Des étudiants ciblés par filière, école et pays, pour nourrir chacun de vos parcours jeunes avec des candidats qui collent vraiment.</p></div>
+      <div class="card"><div class="ic">💜</div><h3>Le « Sanofi Feeling » là où il compte</h3><p>Vos contenus, événements et offres au cœur des écoles, au moment précis où l'étudiant se demande « et après ? ».</p></div>
+      <div class="card"><div class="ic">📊</div><h3>Vous voyez ce qui marche</h3><p>Un pilotage clair, pays par pays : candidatures, taux de transformation, coût par recrutement.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="human">
+      <blockquote>« On aide chaque jeune à trouver sa voie. Vous cherchez celles et ceux qui trouveront demain les prochains traitements. Autant faire les présentations. »</blockquote>
+      <div class="who">— L'équipe JobTeaser</div>
+    </div>
+    <div class="portraits">
+      <img src="portrait-2.png" alt="Jeune diplômée">
+      <img src="portrait-4.png" alt="Jeune diplômé">
+      <img src="portrait-1.png" alt="Jeune diplômé">
+      <img src="portrait-3.png" alt="Jeune diplômé">
+    </div>
+    <p style="text-align:center;color:var(--grey);margin-top:16px">Une génération prête à rejoindre Sanofi.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker">Qui est en face de vous</p>
+    <h2>JobTeaser, le point de rencontre de toute une génération en Europe.</h2>
+    <div class="stats">
+      <div class="stat"><div class="big" data-count="5" data-suffix=" M+">5 M+</div><div class="lbl">étudiants &amp; jeunes diplômés</div></div>
+      <div class="stat"><div class="big" data-count="800" data-suffix="+">800+</div><div class="lbl">écoles &amp; universités</div></div>
+      <div class="stat"><div class="big" data-count="250000" data-suffix="">250 000</div><div class="lbl">recruteurs actifs</div></div>
+      <div class="stat"><div class="big" data-count="25" data-suffix="">25</div><div class="lbl">pays en Europe</div></div>
+    </div>
+    <p class="lead" style="margin-top:28px">Depuis 2008, on fait une seule chose : guider les jeunes vers leur premier vrai job. Des grands groupes santé et industriels s'appuient déjà sur les career centers pour aller chercher R&amp;D, digital et supply là où la concurrence n'est pas encore. <span style="color:#6d7078;font-size:.95rem">(À remplacer par un cas client Sanofi-comparable.)</span></p>
+  </div>
+</section>
+
+<section id="comment">
+  <div class="wrap">
+    <p class="kicker">Comment on démarre</p>
+    <h2>Simple, léger, sans engagement au premier pas.</h2>
+    <div class="steps">
+      <div class="step"><span class="num">1</span><h3>On prend un café (30 min)</h3><p>Vous nous racontez vos objectifs 2026, filière par filière. On repère où le campus a le plus d'effet.</p></div>
+      <div class="step"><span class="num">2</span><h3>Un plan sur-mesure</h3><p>Les écoles et cursus prioritaires pour R&amp;D, Digital, Commercial et Supply, avec un budget de test raisonnable.</p></div>
+      <div class="step"><span class="num">3</span><h3>Un pilote sur 2026</h3><p>On active sur la fenêtre de candidatures et on regarde ensemble, chiffres en main, ce que ça donne.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <p class="kicker">Ce que vous vous demandez peut-être</p>
+    <h2>Parlons franchement.</h2>
+    <details open><summary>« On a déjà une belle notoriété grâce au Sanofi Feeling. »</summary><p>Et c'est exactement pour ça qu'on vous écrit maintenant. La notoriété donne envie ; nous, on la transforme en candidatures ciblées, filière par filière, sans refaire votre travail de marque.</p></details>
+    <details><summary>« On recrute dans plusieurs pays, avec des besoins différents. »</summary><p>Justement : ciblage par pays, école et cursus. R&amp;D en France, Digital ailleurs, Supply là où c'est utile — un seul interlocuteur, des campagnes adaptées.</p></details>
+    <details><summary>« Comment on sait si ça marche ? »</summary><p>On démarre petit, avec des repères clairs : candidatures, taux de transformation, coût par recrutement, comparés à vos canaux actuels. Vous gardez la main.</p></details>
+  </div>
+</section>
+
+<section class="final" id="rdv">
+  <div class="wrap">
+    <h2>On en parle autour d'un café ?</h2>
+    <p>30 minutes, sans engagement, pour voir où JobTeaser peut aider Sanofi à rencontrer ses futurs talents avant l'ouverture des candidatures 2026.</p>
+    <!-- remplacer par votre lien Calendly / mailto -->
+    <a class="btn" href="#">Choisir un créneau ↗</a>
+    <p class="hint" style="margin-top:16px">À l'attention des équipes Talent Acquisition &amp; Early Careers — Sanofi<span class="dot"></span></p>
+  </div>
+</section>
+
+<footer>
+  <div class="cobrand-foot">
+    <span class="jt-mark" style="font-size:.85rem"><span class="tri"></span>JOBTEASER</span>
+    <span class="cross">pour</span>
+    <span class="sa-mark" style="font-size:1rem">sanofi<span class="dot"></span></span>
+  </div>
+  Proposition préparée par JobTeaser pour Sanofi — 2026. Chiffres Sanofi issus de communications publiques 2025.
+</footer>
+
+<div class="mobile-cta"><a class="btn" href="#rdv">Discutons 30 minutes ↗</a></div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var v = document.getElementById('scene');
+  if(reduce && v && v.pause){ try{ v.pause(); }catch(e){} }
+
+  // 1) barre de progression de lecture
+  var bar = document.getElementById('scrollbar');
+  function onScroll(){
+    var h = document.documentElement;
+    var p = h.scrollTop / (h.scrollHeight - h.clientHeight || 1);
+    if(bar) bar.style.width = (p*100) + '%';
+  }
+  document.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  // 2) révélations au scroll (staggering léger par section)
+  if(!reduce){
+    var targets = document.querySelectorAll('section .kicker, section h2, section .lead, .signal, .card, .step, details, .portraits, .stats, .human, .hero-copy, .visual-band img, .split img');
+    targets.forEach(function(el){ el.classList.add('reveal'); });
+    // stagger dans les grilles
+    document.querySelectorAll('.signals, .cards, .steps, .portraits').forEach(function(grid){
+      Array.prototype.forEach.call(grid.children, function(c,i){ c.classList.add('d'+((i%3)+1)); });
+    });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    targets.forEach(function(el){ io.observe(el); });
+  }
+
+  // 3) compteurs animés sur les chiffres
+  function animateCount(el){
+    var raw = el.getAttribute('data-count'); if(raw===null) return;
+    var target = parseFloat(raw), suffix = el.getAttribute('data-suffix') || '';
+    var dur = 1400, t0 = null;
+    function step(ts){ if(!t0) t0 = ts; var p = Math.min((ts-t0)/dur,1);
+      var eased = 1-Math.pow(1-p,3);
+      var val = target*eased;
+      var out = target>=1000 ? Math.round(val).toLocaleString('fr-FR') : (Math.round(val*10)/10);
+      el.textContent = out + suffix;
+      if(p<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var statEls = document.querySelectorAll('.stat .big[data-count]');
+  if(statEls.length){
+    var io2 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ if(reduce){ /* laisse la valeur finale */ } else animateCount(e.target); io2.unobserve(e.target); } });
+    }, {threshold:0.6});
+    statEls.forEach(function(el){ io2.observe(el); });
+  }
+  return;
+  // (ancienne scène 3D désactivée)
+  var canvas = document.getElementById('scene');
+  if(!window.THREE || !canvas){ return; }
+
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
+  camera.position.set(0, 0, 14);
+
+  var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true});
+  renderer.setClearColor(0x000000, 0);
+
+  // lumières
+  scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+  var l1 = new THREE.PointLight(0x2EE676, 1.6, 60); l1.position.set(-8, 6, 10); scene.add(l1);
+  var l2 = new THREE.PointLight(0x7A00E6, 1.8, 60); l2.position.set(9, -4, 8); scene.add(l2);
+
+  var group = new THREE.Group(); scene.add(group);
+
+  // Les DEUX POINTS Sanofi : deux grandes sphères violettes (curiosité → découverte)
+  var purple = new THREE.MeshStandardMaterial({color:0x7A00E6, roughness:0.25, metalness:0.15, emissive:0x3a006e, emissiveIntensity:0.5});
+  var dotA = new THREE.Mesh(new THREE.SphereGeometry(1.15, 48, 48), purple);
+  dotA.position.set(-2.4, 1.1, 0);
+  var dotB = new THREE.Mesh(new THREE.SphereGeometry(0.8, 48, 48), purple.clone());
+  dotB.position.set(2.6, -0.6, 1.2);
+  group.add(dotA); group.add(dotB);
+
+  // Petites sphères vertes JobTeaser (les talents) qui gravitent
+  var green = new THREE.MeshStandardMaterial({color:0x2EE676, roughness:0.3, metalness:0.2, emissive:0x0f5a2c, emissiveIntensity:0.6});
+  var orbs = [];
+  for(var i=0;i<7;i++){
+    var s = new THREE.Mesh(new THREE.SphereGeometry(0.16 + Math.random()*0.18, 24, 24), green);
+    s.userData = { r: 3.2 + Math.random()*2.6, a: Math.random()*Math.PI*2, sp: 0.15 + Math.random()*0.3, y: (Math.random()-0.5)*3 };
+    group.add(s); orbs.push(s);
+  }
+
+  // Flèches ascendantes vertes (motif JobTeaser) en fil de fer
+  function makeArrow(){
+    var g = new THREE.Group();
+    var mat = new THREE.LineBasicMaterial({color:0x2EE676, transparent:true, opacity:0.5});
+    var shaft = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0), new THREE.Vector3(0.8,0.8,0)]);
+    var h1 = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0.8,0.8,0), new THREE.Vector3(0.35,0.8,0)]);
+    var h2 = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0.8,0.8,0), new THREE.Vector3(0.8,0.35,0)]);
+    g.add(new THREE.Line(shaft,mat)); g.add(new THREE.Line(h1,mat)); g.add(new THREE.Line(h2,mat));
+    return g;
+  }
+  var arrows = [];
+  for(var j=0;j<9;j++){
+    var ar = makeArrow();
+    ar.position.set((Math.random()-0.5)*20, (Math.random()-0.5)*12, -4 - Math.random()*6);
+    var sc = 0.6 + Math.random()*1.1; ar.scale.set(sc,sc,sc);
+    ar.userData = { vy: 0.006 + Math.random()*0.012 };
+    scene.add(ar); arrows.push(ar);
+  }
+
+  // interactivité souris
+  var mx = 0, my = 0;
+  window.addEventListener('mousemove', function(e){
+    mx = (e.clientX / window.innerWidth) * 2 - 1;
+    my = (e.clientY / window.innerHeight) * 2 - 1;
+  });
+
+  function resize(){
+    var h = canvas.parentElement.clientHeight || window.innerHeight;
+    var w = canvas.parentElement.clientWidth || window.innerWidth;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h; camera.updateProjectionMatrix();
+  }
+  window.addEventListener('resize', resize); resize();
+
+  var t = 0;
+  function animate(){
+    t += 0.01;
+    group.rotation.y += 0.0025;
+    dotA.position.y = 1.1 + Math.sin(t)*0.25;
+    dotB.position.y = -0.6 + Math.cos(t*1.2)*0.3;
+    for(var k=0;k<orbs.length;k++){
+      var o = orbs[k].userData; o.a += o.sp*0.01;
+      orbs[k].position.set(Math.cos(o.a)*o.r, o.y + Math.sin(t+ k)*0.4, Math.sin(o.a)*o.r);
+    }
+    for(var m=0;m<arrows.length;m++){
+      arrows[m].position.y += arrows[m].userData.vy;
+      if(arrows[m].position.y > 7){ arrows[m].position.y = -7; }
+    }
+    // parallax caméra
+    camera.position.x += (mx*2.2 - camera.position.x) * 0.04;
+    camera.position.y += (-my*1.6 - camera.position.y) * 0.04;
+    camera.lookAt(0,0,0);
+    renderer.render(scene, camera);
+    if(!reduce) requestAnimationFrame(animate);
+  }
+  renderer.render(scene, camera);
+  if(!reduce){ requestAnimationFrame(animate); } else { animate(); }
+})();
+</script>
+</body>
+</html>

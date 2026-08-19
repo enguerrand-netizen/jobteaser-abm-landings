@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{EMETTEUR}} × {{PROSPECT}} — {{TITRE_COURT}}</title>
+<meta name="description" content="{{META_DESCRIPTION}}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Remplacer par les VRAIES polices des marques (PHASE 1). Fallback système robuste. -->
+<link href="https://fonts.googleapis.com/css2?family={{FONT_DISPLAY}}&family={{FONT_BODY}}&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     THEMING — remplir avec les HEX RÉELS (PHASE 1 + PHASE 5bis)
+     Voir DESIGN-SYSTEM.md : choisir MODE dark ou light selon l'émetteur,
+     garantir le contraste AA, dériver les neutres.
+     ============================================================ */
+  :root{
+    --bg:{{BG}};              /* fond principal (dark: #0A0A0A / light: #FFFFFF) */
+    --surface:{{SURFACE}};    /* cartes (dark: #141416 / light: #F5F6F8) */
+    --text:{{TEXT}};          /* texte principal (dark: #FFFFFF / light: #101014) */
+    --muted:{{MUTED}};        /* texte secondaire (dark: #A7ADB5 / light: #5A5F6B) */
+    --line:{{LINE}};          /* séparateurs (dark: #242428 / light: #E6E8EC) */
+    --brand:{{BRAND}};        /* couleur ÉMETTEUR (dominante / CTA) */
+    --brand-ink:{{BRAND_INK}};/* texte SUR bouton brand (contraste AA : #04110A ou #fff) */
+    --brand-hi:{{BRAND_HI}};  /* variante claire du brand pour hover */
+    --accent:{{ACCENT}};      /* couleur PROSPECT (accent / rappels) */
+    --accent-soft:{{ACCENT_SOFT}};
+    --radius:20px; --radius-sm:14px;
+    --s1:8px; --s2:16px; --s3:24px; --s4:40px; --s5:72px; --s6:96px;
+    --font-display:"{{FONT_DISPLAY_NAME}}",system-ui,sans-serif;
+    --font-body:"{{FONT_BODY_NAME}}",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;font-size:17px;-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-feature-settings:"kern","liga";
+    text-rendering:optimizeLegibility;overflow-x:hidden}
+  h1,h2,h3{font-family:var(--font-display);letter-spacing:-.02em;line-height:1.12;font-weight:700;text-wrap:balance;margin:0}
+  p{text-wrap:pretty}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 var(--s3)}
+
+  a.btn{display:inline-flex;align-items:center;gap:10px;background:var(--brand);color:var(--brand-ink);
+    text-decoration:none;font-weight:700;padding:15px 28px;border-radius:var(--radius-sm);font-size:1.02rem;
+    transition:transform .15s,box-shadow .15s,background .15s}
+  a.btn:hover{transform:translateY(-2px);background:var(--brand-hi);box-shadow:0 10px 30px color-mix(in srgb,var(--brand) 35%,transparent)}
+  a.btn:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+  a.btn-ghost{background:transparent;color:var(--brand);border:2px solid color-mix(in srgb,var(--brand) 40%,var(--line))}
+
+  .dot{display:inline-block;width:.34em;height:.34em;border-radius:50%;background:var(--accent);vertical-align:baseline;margin-left:.05em}
+
+  .nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-top{height:3px;background:var(--brand)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:14px var(--s3)}
+  .cobrand{display:flex;align-items:center;gap:14px}
+  .cobrand img{height:26px;width:auto}          /* LOGOS RÉELS (PHASE 2), jamais du texte */
+  .cross{color:var(--muted)}
+  .nav a.btn{padding:9px 18px;font-size:.9rem;border-radius:11px}
+
+  .hero{position:relative;display:flex;align-items:center;overflow:hidden;padding:110px 0 40px}
+  #scene{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .hero::after{content:"";position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 55%,transparent) 0%,transparent 45%,transparent 62%,var(--bg) 100%)}
+  .hero .wrap{position:relative;z-index:2;max-width:1080px}
+  .hero-grid{display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s1)}
+  .hero-copy{max-width:900px;margin:0 auto}
+  .badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);
+    color:var(--muted);font-size:.88rem;padding:8px 16px;border-radius:999px;margin-bottom:var(--s3)}
+  .badge .pulse{width:8px;height:8px;border-radius:50%;background:var(--brand);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--brand) 60%,transparent)}70%{box-shadow:0 0 0 10px transparent}100%{box-shadow:0 0 0 0 transparent}}
+  h1{font-size:clamp(2.2rem,6vw,4rem);margin:0 0 var(--s3)}
+  h1 .g{color:var(--brand)}
+  .hero p.sub{font-size:clamp(1.1rem,2.2vw,1.35rem);color:var(--muted);max-width:680px;margin:0 auto var(--s4)}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+  .hero-img{width:100%;height:auto;max-width:1000px;margin-top:var(--s2)}   /* PNG transparent si détouré */
+  .hint{margin-top:var(--s3);font-size:.85rem;color:var(--muted)}
+
+  section{padding:var(--s6) 0;border-top:1px solid var(--line);position:relative}
+  .kicker{text-transform:uppercase;letter-spacing:2px;font-size:.76rem;font-weight:700;color:var(--accent);margin:0 0 12px}
+  h2{font-size:clamp(1.7rem,3.6vw,2.5rem);margin:0 0 16px;max-width:680px}
+  .lead{font-size:1.12rem;color:var(--muted);max-width:680px;line-height:1.7}
+
+  .logos{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center;justify-content:center;margin-top:var(--s4)}
+  .logos img{height:34px;width:auto;filter:grayscale(1);opacity:.7;transition:.2s}
+  .logos img:hover{filter:none;opacity:1}
+
+  .grid{display:grid;gap:18px;margin-top:var(--s4)}
+  .grid-2{grid-template-columns:repeat(2,1fr)} .grid-3{grid-template-columns:repeat(3,1fr)} .grid-4{grid-template-columns:repeat(4,1fr)}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px;
+    transition:transform .25s,border-color .25s,box-shadow .25s}
+  .card:hover{transform:translateY(-4px);border-color:var(--brand);box-shadow:0 16px 40px rgba(0,0,0,.35)}
+  .card .ic{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    font-size:1.5rem;margin-bottom:16px;background:color-mix(in srgb,var(--accent) 15%,transparent);
+    border:1px solid color-mix(in srgb,var(--accent) 35%,transparent)}
+  .card h3{font-size:1.2rem;margin:0 0 8px} .card p{margin:0;color:var(--muted)}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center;margin-top:var(--s2)}
+  .stat .big{font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,4.5vw,3rem);color:var(--brand)}
+  .stat .lbl{color:var(--muted);font-size:.92rem}
+
+  .human{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 18%,transparent),color-mix(in srgb,var(--brand) 10%,transparent));
+    border:1px solid var(--line);border-radius:24px;padding:48px;text-align:center}
+  .human blockquote{font-family:var(--font-display);font-weight:600;font-size:clamp(1.3rem,2.8vw,1.85rem);line-height:1.32;margin:0 auto;max-width:720px}
+  .human .who{margin-top:16px;color:var(--accent);font-weight:600}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:var(--s4)}
+  .step{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;transition:transform .25s,border-color .25s}
+  .step:hover{transform:translateY(-4px);border-color:var(--brand)}
+  .step .num{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;
+    background:var(--brand);color:var(--brand-ink);font-family:var(--font-display);font-weight:700;font-size:1.15rem;margin-bottom:14px}
+  .step h3{font-size:1.1rem;margin:0 0 8px} .step p{margin:0;color:var(--muted)}
+
+  details{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:18px 22px;margin-bottom:12px}
+  summary{font-family:var(--font-display);font-weight:600;font-size:1.08rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:14px}
+  summary::-webkit-details-marker{display:none} summary::after{content:"+";color:var(--brand);font-weight:700}
+  details[open] summary::after{content:"–"} details p{color:var(--muted);margin:12px 0 0}
+
+  .final{text-align:center;background:radial-gradient(80% 120% at 50% 0%,color-mix(in srgb,var(--accent) 25%,transparent),transparent 60%)}
+  .final h2{margin:0 auto 16px} .final p{color:var(--muted);max-width:600px;margin:0 auto 28px;font-size:1.12rem}
+
+  footer{padding:38px 0;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;text-align:center}
+  .cobrand-foot{display:flex;gap:12px;justify-content:center;align-items:center;margin-bottom:12px}
+  .cobrand-foot img{height:22px}
+
+  .scrollbar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--brand),var(--accent));z-index:60;transition:width .1s linear}
+  .js .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+  .js .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+  .mobile-cta{position:fixed;left:0;right:0;bottom:0;z-index:40;display:none;padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+    background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+  .mobile-cta a.btn{width:100%;justify-content:center}
+
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}.js .reveal{opacity:1;transform:none}}
+  @media(min-width:1500px){.wrap{max-width:1120px}}
+  @media(max-width:900px){.hero{padding:96px 0 56px}.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:1fr}}
+  @media(max-width:680px){
+    html{font-size:16px}.nav .cross{display:none}.grid-2{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}
+    h1{font-size:clamp(2rem,9vw,2.8rem)}.human{padding:28px 18px}
+    .mobile-cta{display:block}footer{padding-bottom:84px}
+  }
+  @media(max-width:400px){.wrap{padding:0 16px}.hero-actions{flex-direction:column;align-items:stretch}.hero-actions a.btn{justify-content:center}}
+</style>
+</head>
+<body>
+<script>document.documentElement.className+=' js';</script>
+<div class="scrollbar" id="scrollbar"></div>
+
+<div class="nav"><div class="nav-top"></div><div class="wrap">
+  <div class="cobrand">
+    <img src="assets/logo-emetteur.svg" alt="{{EMETTEUR}}"><span class="cross">pour</span>
+    <img src="assets/logo-prospect.svg" alt="{{PROSPECT}}">
+  </div>
+  <a class="btn" href="#rdv">{{CTA_LABEL}}</a>
+</div></div>
+
+<header class="hero">
+  <!-- fond animé : vidéo motion générée OU canvas. Fallback : gradient on-brand (voir DESIGN-SYSTEM). -->
+  <video id="scene" autoplay muted loop playsinline aria-hidden="true" poster="assets/hero-poster.jpg">
+    <source src="assets/brand-motion.mp4" type="video/mp4"></video>
+  <div class="wrap"><div class="hero-grid"><div class="hero-copy">
+    <span class="badge"><span class="pulse"></span> {{BADGE}}</span>
+    <h1>{{HERO_TITRE_1}} <span class="g">{{HERO_TITRE_ACCENT}}</span><span class="dot"></span></h1>
+    <p class="sub">{{HERO_SOUS_TITRE_THESE}}</p>
+    <div class="hero-actions"><a class="btn" href="#rdv">{{CTA_LABEL}} ↗</a><a class="btn btn-ghost" href="#valeur">{{CTA_SECONDAIRE}}</a></div>
+    <p class="hint">{{HERO_HINT}}</p>
+  </div>
+  <img class="hero-img" src="assets/hero-visuel.png" alt="{{HERO_ALT}}"></div></div>
+</header>
+
+<section id="pourquoi"><div class="wrap">
+  <p class="kicker">Pourquoi vous, pourquoi maintenant</p>
+  <h2>{{POURQUOI_H2}}</h2>
+  <p class="lead">{{POURQUOI_LEAD}}</p>
+  <div class="grid grid-2">
+    <div class="card"><h3>{{SIGNAL_1_TITRE}}</h3><p>{{SIGNAL_1_TEXTE}}</p></div>
+    <div class="card"><h3>{{SIGNAL_2_TITRE}}</h3><p>{{SIGNAL_2_TEXTE}}</p></div>
+    <div class="card"><h3>{{SIGNAL_3_TITRE}}</h3><p>{{SIGNAL_3_TEXTE}}</p></div>
+    <div class="card"><h3>{{SIGNAL_4_TITRE}}</h3><p>{{SIGNAL_4_TEXTE}}</p></div>
+  </div>
+</div></section>
+
+<section id="valeur"><div class="wrap">
+  <p class="kicker">Ce que ça change pour {{PROSPECT}}</p>
+  <h2>{{VALEUR_H2}}</h2>
+  <p class="lead">{{VALEUR_LEAD}}</p>
+  <!-- ≥ 3 blocs, PLUS si value_props[] est riche (PHASE 3bis C) -->
+  <div class="grid grid-3">
+    <div class="card"><div class="ic">{{VP1_ICON}}</div><h3>{{VP1_TITRE}}</h3><p>{{VP1_TEXTE}}</p></div>
+    <div class="card"><div class="ic">{{VP2_ICON}}</div><h3>{{VP2_TITRE}}</h3><p>{{VP2_TEXTE}}</p></div>
+    <div class="card"><div class="ic">{{VP3_ICON}}</div><h3>{{VP3_TITRE}}</h3><p>{{VP3_TEXTE}}</p></div>
+  </div>
+</div></section>
+
+<section id="preuve"><div class="wrap">
+  <p class="kicker">Ils nous font déjà confiance dans votre secteur</p>
+  <h2>{{PREUVE_H2}}</h2>
+  <!-- bandeau LOGOS RÉELS : clients secteur + écosystème (PHASE 3bis B) -->
+  <div class="logos">
+    <img src="assets/ref-1.svg" alt="{{REF_1}}"><img src="assets/ref-2.svg" alt="{{REF_2}}">
+    <img src="assets/ref-3.svg" alt="{{REF_3}}"><img src="assets/ref-4.svg" alt="{{REF_4}}">
+    <img src="assets/ref-5.svg" alt="{{REF_5}}"><img src="assets/ref-6.svg" alt="{{REF_6}}">
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="big" data-count="{{STAT1_N}}" data-suffix="{{STAT1_SUF}}">{{STAT1_AFF}}</div><div class="lbl">{{STAT1_LBL}}</div></div>
+    <div class="stat"><div class="big" data-count="{{STAT2_N}}" data-suffix="{{STAT2_SUF}}">{{STAT2_AFF}}</div><div class="lbl">{{STAT2_LBL}}</div></div>
+    <div class="stat"><div class="big" data-count="{{STAT3_N}}" data-suffix="{{STAT3_SUF}}">{{STAT3_AFF}}</div><div class="lbl">{{STAT3_LBL}}</div></div>
+    <div class="stat"><div class="big" data-count="{{STAT4_N}}" data-suffix="{{STAT4_SUF}}">{{STAT4_AFF}}</div><div class="lbl">{{STAT4_LBL}}</div></div>
+  </div>
+  <div class="human" style="margin-top:var(--s4)">
+    <blockquote>« {{TEMOIGNAGE}} »</blockquote>
+    <div class="who">— {{TEMOIN_NOM}}, {{TEMOIN_POSTE}}</div>
+  </div>
+</div></section>
+
+<section id="comment"><div class="wrap">
+  <p class="kicker">Comment on démarre</p>
+  <h2>{{COMMENT_H2}}</h2>
+  <div class="steps">
+    <div class="step"><span class="num">1</span><h3>{{ETAPE_1_TITRE}}</h3><p>{{ETAPE_1_TEXTE}}</p></div>
+    <div class="step"><span class="num">2</span><h3>{{ETAPE_2_TITRE}}</h3><p>{{ETAPE_2_TEXTE}}</p></div>
+    <div class="step"><span class="num">3</span><h3>{{ETAPE_3_TITRE}}</h3><p>{{ETAPE_3_TEXTE}}</p></div>
+  </div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <p class="kicker">Questions que vous vous posez peut-être</p>
+  <h2>Parlons franchement.</h2>
+  <details open><summary>{{FAQ_1_Q}}</summary><p>{{FAQ_1_R}}</p></details>
+  <details><summary>{{FAQ_2_Q}}</summary><p>{{FAQ_2_R}}</p></details>
+  <details><summary>{{FAQ_3_Q}}</summary><p>{{FAQ_3_R}}</p></details>
+</div></section>
+
+<section class="final" id="rdv"><div class="wrap">
+  <h2>{{FINAL_H2}}</h2>
+  <p>{{FINAL_TEXTE}}</p>
+  <a class="btn" href="{{CTA_URL}}">{{CTA_LABEL}} ↗</a>
+  <p class="hint">{{FINAL_DESTINATAIRE}}<span class="dot"></span></p>
+</div></section>
+
+<footer><div class="cobrand-foot">
+  <img src="assets/logo-emetteur.svg" alt="{{EMETTEUR}}"><span class="cross">pour</span>
+  <img src="assets/logo-prospect.svg" alt="{{PROSPECT}}">
+</div>{{FOOTER_MENTION}}</footer>
+
+<div class="mobile-cta"><a class="btn" href="#rdv">{{CTA_LABEL}} ↗</a></div>
+
+<script>
+(function(){
+  var reduce = matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var v=document.getElementById('scene'); if(reduce&&v&&v.pause){try{v.pause()}catch(e){}}
+  var bar=document.getElementById('scrollbar');
+  addEventListener('scroll',function(){var h=document.documentElement;bar&&(bar.style.width=(h.scrollTop/((h.scrollHeight-h.clientHeight)||1)*100)+'%')},{passive:true});
+  if(!reduce){
+    var t=document.querySelectorAll('section .kicker,section h2,section .lead,.card,.step,details,.stats,.human,.logos,.hero-copy,.hero-img');
+    t.forEach(function(e){e.classList.add('reveal')});
+    document.querySelectorAll('.grid,.steps').forEach(function(g){Array.prototype.forEach.call(g.children,function(c,i){c.classList.add('d'+((i%3)+1))})});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+    t.forEach(function(e){io.observe(e)});
+  }
+  function count(el){var tg=parseFloat(el.getAttribute('data-count'));if(isNaN(tg))return;var sf=el.getAttribute('data-suffix')||'',t0=null;
+    function s(ts){t0||(t0=ts);var p=Math.min((ts-t0)/1400,1),e=1-Math.pow(1-p,3),val=tg*e;
+      el.textContent=(tg>=1000?Math.round(val).toLocaleString('fr-FR'):Math.round(val*10)/10)+sf;if(p<1)requestAnimationFrame(s)}requestAnimationFrame(s)}
+  var st=document.querySelectorAll('.stat .big[data-count]');
+  if(st.length){var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){if(!reduce)count(e.target);io2.unobserve(e.target)}})},{threshold:.6});st.forEach(function(e){io2.observe(e)})}
+})();
+</script>
+</body>
+</html>

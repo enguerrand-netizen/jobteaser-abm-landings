@@ -98,6 +98,16 @@ def webi_card(i, wid, title, tag, data, persona, promesse, ads):
             f'<details class="wads"><summary>Voir les 3 ads associées →</summary>{a}</details>{stamp("web_"+wid, "Webinaire — "+title)}</div>')
 webi_html = "".join(webi_card(i, *w) for i, w in enumerate(WEBI))
 
+# ---------- Audience ----------
+AUD_FONCTION = [("Exploitation", 23), ("Recherche", 13), ("Ingénierie", 9), ("Technologies de l'information", 8), ("Ventes", 8)]
+AUD_NIVEAU = [("Jeune diplômé", 41), ("Expérimenté", 30), ("Directeur", 11), ("Manager", 11), ("Non payé (stage/alternance)", 2)]
+AUD_ORGANIC = [("R&amp;D / Science / Clinique", "25-30%"), ("Digital / Data / IA", "15%"), ("Manufacturing / Supply Chain / Qualité / Ingénierie", "18-20%"), ("Commercial / Sales / Marketing / Access", "15%"), ("Médical (Medical Affairs)", "8-10%"), ("Fonctions corporate (RH, Legal, Finance, Stratégie, Achats)", "10%")]
+def aud_bar(label, pct):
+    return f'<div class="abar"><span class="abl">{label}</span><div class="abt"><div class="abf" style="width:{pct}%"></div></div><span class="abv">{pct}%</span></div>'
+aud_fonction_html = "".join(aud_bar(*x) for x in AUD_FONCTION)
+aud_niveau_html = "".join(aud_bar(*x) for x in AUD_NIVEAU)
+aud_organic_html = "".join(f'<div class="abar"><span class="abl">{l}</span><span class="abv" style="min-width:70px;text-align:right">{p}</span></div>' for l, p in AUD_ORGANIC)
+
 # ---------- À valider ----------
 VAL = [("livrables","Valider les livrables","2 livres blancs, 9 créas, 1 landing (pilote), webinaire — ce qui est OK / à retravailler."),
  ("charte","Retour charte graphique","Couleurs Sanofi (violet #7A00E6 sourcé), JobTeaser (mint #5BFF77 sourcé), logos, ton."),
@@ -105,7 +115,7 @@ VAL = [("livrables","Valider les livrables","2 livres blancs, 9 créas, 1 landin
  ("webinar","Webinaire IA &amp; biopharma","Quelle thématique parmi les 6 ? Intervenants, date visée."),
  ("budget","Budget &amp; seuil go/no-go","OK sur ~500 €/mois M1-M2, règle M3 (scale si probant, sinon pause) ?"),
  ("bdr","Fiche BDR","Alexis Samuel — coordonnées confirmées. Photo présente (assets/alexis-samuel.jpg) : à valider pour usage nominatif."),
- ("audience","Audience LinkedIn","Décomposition à finaliser via l'OS — non incluse dans cette version pour rester strictement sourcée."),
+ ("audience","Audience LinkedIn","Voir l'onglet Audience — 2 040 profils organiques (OS) + ciblage pub Campaign Manager (32k, France). Pas encore de compte pub Sanofi dédié dans l'OS."),
  ("cobranding","Accord co-branding Sanofi","Feu vert Sanofi pour logo, nom, chiffres (positionnement IA, 294 M$…) dans des créas publiques ?"),
  ("autres","Autres retours","Tout élément utile de la part de JobTeaser.")]
 val_html = "".join(f'<div class="vitem"><label class="vh">{t}</label><p class="vd">{d}</p><textarea data-fb="{k}" placeholder="Vos retours…"></textarea></div>' for k, t, d in VAL)
@@ -132,6 +142,12 @@ CSS = """
 #tool .subtab{background:none;border:0;padding:10px 4px;margin-right:14px;font-weight:700;color:var(--grey);cursor:pointer;border-bottom:2px solid transparent}
 #tool .subtab.act{color:var(--ink);border-bottom-color:var(--purple)} #tool .sub{display:none} #tool .sub.on{display:block}
 #tool .cbadge{display:inline-block;margin-left:7px;background:#efeef4;color:var(--grey);font-size:11px;font-weight:800;padding:1px 7px;border-radius:10px}
+#tool .abar{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+#tool .abl{width:270px;flex:0 0 270px;font-size:13px;color:var(--ink);font-weight:600}
+#tool .abt{flex:1;height:10px;background:#efeef4;border-radius:6px;overflow:hidden}
+#tool .abf{height:100%;background:var(--green-d);border-radius:6px}
+#tool .abv{width:44px;flex:0 0 44px;text-align:right;font-weight:800;font-size:13px}
+#tool .aud-src{font-size:11px;color:var(--grey);margin:4px 0 22px}
 #tool .subtab.act .cbadge{background:var(--purple);color:#fff}
 #tool .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 #tool .gal figure{margin:0;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
@@ -236,6 +252,7 @@ HTML = f"""<div id="tool">
   <button class="tab" data-t="content" onclick="showTab('t-content',event)">Content</button>
   <button class="tab" data-t="crea" onclick="showTab('t-crea',event)">Créa</button>
   <button class="tab" data-t="webi" onclick="showTab('t-webi',event)">Webinar</button>
+  <button class="tab" data-t="audience" onclick="showTab('t-audience',event)">Audience</button>
   <button class="tab" data-t="val" onclick="showTab('t-val',event)">À valider</button>
 </div>
 
@@ -282,6 +299,30 @@ HTML = f"""<div id="tool">
   <div class="stitle">WEBINAR · IA &amp; BIOPHARMA</div><div class="shead">Le temps fort de fin de mois 2</div>
   <p class="sintro">Un webinaire <b>secteur biopharma/IA</b> programmé fin du mois 2. Sélectionnez une thématique : ses 3 ads sont déjà écrites.</p>
   <div class="wcards">{webi_html}</div>
+</div></div>
+
+<div id="t-audience" class="panel"><div class="wrap">
+  <div class="stitle">AUDIENCE</div><div class="shead">Qui est réellement Sanofi sur LinkedIn</div>
+  <p class="sintro">Deux sources réelles et sourcées : l'audience organique (salariés Sanofi identifiés via l'OS Bulldozer) et l'audience publicitaire (ciblage LinkedIn Campaign Manager, testé en direct — aucune campagne enregistrée ni lancée).</p>
+
+  <div class="acard">
+    <h4>Audience organique — 2 040 profils Sanofi identifiés</h4>
+    <p class="mut">Scraping LinkedIn via l'OS Bulldozer (job du 22/07/2026). Répartition estimée sur un échantillon de ~220 profils.</p>
+    {aud_organic_html}
+    <p class="aud-src">Source : OS Bulldozer, bdzListLinkedInEmployees, companyLinkedInId=sanofi, 2 040 profils au total.</p>
+  </div>
+
+  <div class="acard">
+    <h4>Audience publicitaire — ciblage LinkedIn Campaign Manager</h4>
+    <p class="mut"><b>32 000+ personnes</b> ciblables en France sur le critère « Sanofi » (poste actuel). 97% de l'audience travaille dans une entreprise de + de 10 000 employés — cohérent avec le groupe.</p>
+    <div class="stitle" style="margin-top:18px;font-size:10px">RÉPARTITION PAR FONCTION</div>
+    {aud_fonction_html}
+    <div class="stitle" style="margin-top:18px;font-size:10px">RÉPARTITION PAR NIVEAU HIÉRARCHIQUE</div>
+    {aud_niveau_html}
+    <p class="aud-src">Source : LinkedIn Campaign Manager (compte BULLDOZER), ciblage test « Noms d'entreprises = Sanofi », France, 20/08/2026. Brouillon non enregistré, aucune campagne créée. Comptes similaires suggérés par LinkedIn : Roche, Boehringer Ingelheim, GSK, Abbott.</p>
+  </div>
+
+  <div class="acard"><p class="mut">41% « jeune diplômé » confirme un vivier Early Careers solide (cohérent avec le Livre blanc nº1). 22% Directeur+Manager valide la cible décisionnaire de l'approche ABM. Pas encore de compte pub LinkedIn dédié Sanofi dans l'OS — le compte existant (B2B France) est la marque JobTeaser générique.</p></div>
 </div></div>
 
 <div id="t-val" class="panel"><div class="wrap">
